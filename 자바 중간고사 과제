@@ -5,7 +5,7 @@ public class Calculator extends JFrame {
     public Calculator() {
         setTitle("계산기");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(520, 250);
+        setSize(350, 600);
 
         Container container = getContentPane();
 
@@ -13,6 +13,6 @@ public class Calculator extends JFrame {
         container.setLayout(new BorderLayout());
 
         //텍스트필드
-        JTextField text = new JTextField("0.");
+        JTextField text = new JTextField("0");
         text.setEnabled(false);
         container.add(BorderLayout.NORTH, text);
