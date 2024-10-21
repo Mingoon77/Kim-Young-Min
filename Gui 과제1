@@ -29,3 +29,31 @@ public class Calculator extends JFrame {
         JPanel btnPanel = new JPanel();
         //줄 5개, 열 5개, 위옆차이를 3px로 설정
         btnPanel.setLayout(new GridLayout(5,5,3,3));
+
+        //1번째줄
+        //버튼생성
+        JButton backSpace = new JButton("Backspace");
+        //버튼색 노랑색으로 지정
+        backSpace.setBackground(Color.yellow);
+        //버튼 텍스트색 파랑색으로 지정
+        backSpace.setForeground(Color.BLUE);
+        //패널에 버튼 추가
+        btnPanel.add(backSpace);
+
+        JButton blank1 = new JButton("");
+        blank1.setBackground(Color.yellow);
+        btnPanel.add(blank1);
+
+        JButton blank2 = new JButton("");
+        blank2.setBackground(Color.yellow);
+        btnPanel.add(blank2);
+
+        JButton cE = new JButton("CE");
+        cE.setBackground(Color.yellow);
+        cE.setForeground(Color.red);
+        btnPanel.add(cE);
+
+        JButton c = new JButton("C");
+        c.setBackground(Color.yellow);
+        c.setForeground(Color.red);
+        btnPanel.add(c);
