@@ -1,0 +1,20 @@
+import javax.swing.*;
+import java.awt.*;
+
+//과제1 - 2020011932 - 김영민
+
+public class Calculator extends JFrame {
+    public Calculator() {
+        //제목
+        setTitle("계산기");
+        //종료시켰을때 실행 파일도 함께 종료
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //사이즈설정
+        setSize(520, 250);
+
+        Container container = getContentPane();
+
+        //컨테이너 배경색 회색으로 설정
+        container.setBackground(Color.GRAY);
+        //버튼 패널과 텍스트 필드를 구분하기 위한 레이아웃 설정
+        container.setLayout(new BorderLayout());
