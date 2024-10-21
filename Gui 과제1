@@ -18,3 +18,9 @@ public class Calculator extends JFrame {
         container.setBackground(Color.GRAY);
         //버튼 패널과 텍스트 필드를 구분하기 위한 레이아웃 설정
         container.setLayout(new BorderLayout());
+
+        //텍스트필드
+        JTextField text = new JTextField("0.");
+        //텍스트 사용불가능 설정
+        text.setEnabled(false);
+        container.add(BorderLayout.NORTH, text);
