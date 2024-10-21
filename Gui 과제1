@@ -24,3 +24,8 @@ public class Calculator extends JFrame {
         //텍스트 사용불가능 설정
         text.setEnabled(false);
         container.add(BorderLayout.NORTH, text);
+
+        //버튼 패널 생성
+        JPanel btnPanel = new JPanel();
+        //줄 5개, 열 5개, 위옆차이를 3px로 설정
+        btnPanel.setLayout(new GridLayout(5,5,3,3));
