@@ -83,3 +83,29 @@ public class Calculator extends JFrame {
         sqrt.setBackground(Color.yellow);
         sqrt.setForeground(Color.red);
         btnPanel.add(sqrt);
+
+        //3번째줄
+        JButton four = new JButton("4");
+        four.setBackground(Color.yellow);
+        four.setForeground(Color.BLUE);
+        btnPanel.add(four);
+
+        JButton five = new JButton("5");
+        five.setBackground(Color.yellow);
+        five.setForeground(Color.BLUE);
+        btnPanel.add(five);
+
+        JButton six = new JButton("6");
+        six.setBackground(Color.yellow);
+        six.setForeground(Color.BLUE);
+        btnPanel.add(six);
+
+        JButton x = new JButton("x");
+        x.setBackground(Color.yellow);
+        x.setForeground(Color.red);
+        btnPanel.add(x);
+
+        JButton percent = new JButton("%");
+        percent.setBackground(Color.yellow);
+        percent.setForeground(Color.red);
+        btnPanel.add(percent);
