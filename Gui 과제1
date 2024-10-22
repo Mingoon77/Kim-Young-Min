@@ -135,3 +135,40 @@ public class Calculator extends JFrame {
         oneSlashX.setBackground(Color.yellow);
         oneSlashX.setForeground(Color.red);
         btnPanel.add(oneSlashX);
+
+        //5번째줄
+        JButton zero = new JButton("0");
+        zero.setBackground(Color.yellow);
+        zero.setForeground(Color.BLUE);
+        btnPanel.add(zero);
+
+        JButton plusMinus = new JButton("+/-");
+        plusMinus.setBackground(Color.yellow);
+        plusMinus.setForeground(Color.BLUE);
+        btnPanel.add(plusMinus);
+
+        JButton dot = new JButton(".");
+        dot.setBackground(Color.yellow);
+        dot.setForeground(Color.BLUE);
+        btnPanel.add(dot);
+
+        JButton plus = new JButton("+");
+        plus.setBackground(Color.yellow);
+        plus.setForeground(Color.red);
+        btnPanel.add(plus);
+
+        JButton equal = new JButton("=");
+        equal.setBackground(Color.yellow);
+        equal.setForeground(Color.red);
+        btnPanel.add(equal);
+
+        //컨테이너에 패널추가
+        container.add(btnPanel);
+
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        Calculator calculator = new Calculator();
+    }
+}
