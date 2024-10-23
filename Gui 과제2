@@ -1,0 +1,39 @@
+import javax.swing.*;
+import java.awt.*;
+
+public class Pizza_2020011932 extends JFrame {
+    public Pizza_2020011932() {
+        setTitle("피자 주문");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(500, 150);
+
+        Container container = getContentPane();
+
+        JPanel panel = new JPanel();
+
+        JPanel panelA = new JPanel();
+        panelA.add(new JLabel("자바 피자에 오신 것을 환영합니다. 피자의 종류를 선택하시오."));
+
+        JPanel panelB = new JPanel();
+        JButton btnCombo = new JButton("콤보피자");
+        JButton btnPotato = new JButton("포테이토피자");
+        JButton btnBoolgogi = new JButton("불고기피자");
+        panelB.add(btnCombo);
+        panelB.add(btnPotato);
+        panelB.add(btnBoolgogi);
+        panelB.add(new JLabel("개수"));
+        JTextField txtN = new JTextField(7);
+        panelB.add(txtN);
+
+        panel.add(panelA);
+        panel.add(panelB);
+
+        container.add(panel);
+
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        Pizza_2020011932 pizza = new Pizza_2020011932();
+    }
+}
