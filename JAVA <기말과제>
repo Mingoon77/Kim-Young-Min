@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 public class ReservePC {
 
-    // 예약 상태를 추적할 배열 (true: 예약됨, false: 예약되지 않음)
+    // 좌석 예약 상태를 배열에 저장 (true: 예약됨, false: 예약되지 않음)
     static boolean[] seatReserved = new boolean[6]; // 6개의 PC 좌석
 
     public static void main(String[] args) {
@@ -15,11 +15,7 @@ public class ReservePC {
         SwingUtilities.invokeLater(() -> {
             // 첫 번째 JFrame 생성 (사용자1, 사용자2, 사용자3 버튼 + 관리자 버튼)
             JFrame frame = new JFrame("강의실 좌석 예약 시스템");
-
-            // 종료 버튼 클릭 시 프로그램 종료
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-            // 레이아웃 설정 (여기서는 BorderLayout을 사용하여 상단과 하단에 배치)
             frame.setLayout(new BorderLayout(10, 20));  // BorderLayout을 사용하여 위와 아래에 배치
 
             // "예약할 계정을 선택해주세요" 문구를 표시하는 패널 생성
@@ -34,7 +30,7 @@ public class ReservePC {
             JButton button2 = new JButton("사용자2");
             JButton button3 = new JButton("사용자3");
 
-            // 사용자 버튼 클릭 시, 'PC1', 'PC2', 'PC3' 버튼이 있는 새 화면을 띄움
+            // 사용자 버튼 클릭 시, 'PC1', 'PC2', 'PC3' 버튼이 있는 두번째 화면을 띄움
             button1.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -96,23 +92,20 @@ public class ReservePC {
             // 관리자 버튼 패널을 프레임의 하단에 배치
             frame.add(adminPanel, BorderLayout.SOUTH);
 
-            // JFrame 크기 설정 (너비 250, 높이 400)
             frame.setSize(330, 200);
 
-            // 화면에 표시
             frame.setVisible(true);
         });
     }
 
-    // 새로운 창을 띄우는 메서드 (PC1, PC2, PC3, PC4, PC5, PC6 버튼)
+    // 두번째 창을 띄우는 메서드 (PC1, PC2, PC3, PC4, PC5, PC6 버튼)
     private static void showPCButtons(String user) {
         // 새로운 JFrame 생성 (PC1, PC2, PC3, PC4, PC5, PC6 버튼을 포함한 화면)
         JFrame pcFrame = new JFrame(user + "의 좌석 예약");
-
-        // 종료 버튼 클릭 시 프로그램 종료
+        
         pcFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        // 레이아웃 설정 (여기서는 BorderLayout을 사용하여 위쪽에 교탁 버튼 배치)
+        // 레이아웃 설정 (BorderLayout을 사용하여 위쪽에 교탁 버튼 배치)
         pcFrame.setLayout(new BorderLayout(10, 20));
 
         // 교탁 버튼 패널 생성
@@ -136,7 +129,7 @@ public class ReservePC {
 
         podiumPanel.add(podiumButton);
 
-        // PC 버튼 6개 생성
+        // PC 좌석 6개 생성
         JPanel pcPanel = new JPanel();
         pcPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20));
         JButton pcButton1 = new JButton("PC1");
@@ -146,7 +139,7 @@ public class ReservePC {
         JButton pcButton5 = new JButton("PC5");
         JButton pcButton6 = new JButton("PC6");
 
-        // 각 버튼에 ActionListener 추가하여 클릭 시 랜덤 문제 발생
+        // 각 버튼에 액션리스너 추가하여 클릭 시 랜덤으로 상태 문제 발생
         addSeatReservationActionListener(pcButton1, pcFrame);
         addSeatReservationActionListener(pcButton2, pcFrame);
         addSeatReservationActionListener(pcButton3, pcFrame);
@@ -181,11 +174,9 @@ public class ReservePC {
         pcFrame.add(podiumPanel, BorderLayout.NORTH);
         pcFrame.add(pcPanel, BorderLayout.CENTER);
         pcFrame.add(backButtonPanel, BorderLayout.SOUTH);
-
-        // 새로운 JFrame 크기 설정
+        
         pcFrame.setSize(550, 200);
-
-        // 화면에 표시
+        
         pcFrame.setVisible(true);
     }
 
@@ -195,7 +186,7 @@ public class ReservePC {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // 랜덤으로 PC에 문제가 생겼다고 메시지를 출력
-                if (Math.random() < 0.5) {  // 50% 확률로 문제가 발생
+                if (Math.random() < 0.5) {  // 50% 확률로 문제가 발생하도록 설정
                     JOptionPane.showMessageDialog(pcFrame,
                             "PC에 문제가 있습니다. 관리자에게 문의하세요.",
                             "문제 발생", JOptionPane.ERROR_MESSAGE);
@@ -203,7 +194,7 @@ public class ReservePC {
                     // 버튼 색상과 글자 색을 변경
                     pcButton.setBackground(Color.PINK);  // 핑크색
                     pcButton.setText("PC 문제");  // 텍스트 변경
-                    pcButton.setForeground(Color.BLACK);  // 글자 색을 검정색으로
+                    pcButton.setForeground(Color.BLACK);  // 글자색을 검정색으로
 
                     // 버튼을 비활성화
                     pcButton.setEnabled(false);
@@ -218,21 +209,10 @@ public class ReservePC {
                         // 좌석 예약 완료 메시지
                         JOptionPane.showMessageDialog(pcFrame, "좌석 예약이 완료되었습니다!");
 
-                        // 버튼 색상과 글자 색 변경
+                        // 버튼 색상과 글자색 변경
                         pcButton.setBackground(Color.YELLOW);  // 예약 완료 색상
                         pcButton.setText("예약완료");  // 버튼 텍스트 변경
-                        pcButton.setForeground(Color.BLACK);  // 글자 색 변경
-
-                        // 버튼을 60분 동안 비활성화시키기 위해 Timer 설정
-                        Timer timer = new Timer(3600000, new ActionListener() {  // 60분 = 3600000 밀리초
-                            @Override
-                            public void actionPerformed(ActionEvent e) {
-                                // 시간 종료 후 버튼 활성화
-                                pcButton.setEnabled(true);
-                            }
-                        });
-                        timer.setRepeats(false);  // 타이머가 한 번만 실행되도록 설정
-                        timer.start();
+                        pcButton.setForeground(Color.BLACK);  // 글자색 변경
 
                         // 버튼 비활성화
                         pcButton.setEnabled(false);
@@ -245,13 +225,12 @@ public class ReservePC {
 
 
 
-    // 관리자가 사용하는 화면을 띄우는 메서드
+    // 관리자 화면을 띄우는 메서드
     private static void showAdminScreen() {
 
         // 새로운 JFrame 생성 (관리자 화면)
         JFrame adminFrame = new JFrame("관리자 화면");
 
-        // 종료 버튼 클릭 시 프로그램 종료
         adminFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         // 레이아웃 설정 (여기서는 세로 방향으로 버튼들을 배치)
@@ -280,7 +259,6 @@ public class ReservePC {
         adminFrame.add(seatStatusButton);
         adminFrame.add(reservationCheckButton);
 
-        // 화면 크기 설정
         adminFrame.setSize(220, 120);
         adminFrame.setVisible(true);
     }
@@ -307,16 +285,16 @@ public class ReservePC {
         JOptionPane.showMessageDialog(null, status.toString(), "예약확인", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    // 관리자 아이디 입력 다이얼로그를 띄우는 메서드
+    // 관리자 아이디 입력창을 띄우는 메서드
     private static void showAdminLogin() {
         JPanel panel = new JPanel();
         panel.add(new JLabel("아이디 입력:"));
         JTextField adminIdField = new JTextField(10);
-        // 아이디 입력칸에 "admin"을 자동으로 입력
+        // 편의상 아이디 입력칸에 "admin"을 자동으로 입력되도록 설정
         adminIdField.setText("admin");
         panel.add(adminIdField);
 
-        // 관리자 아이디 입력 다이얼로그 표시
+        // 관리자 아이디 입력창 표시
         int option = JOptionPane.showConfirmDialog(null, panel, "관리자 아이디 입력", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         if (option == JOptionPane.OK_OPTION) {
