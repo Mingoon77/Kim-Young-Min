@@ -281,7 +281,7 @@ public class ReservePC {
         adminFrame.add(reservationCheckButton);
 
         // 화면 크기 설정
-        adminFrame.setSize(250, 150);
+        adminFrame.setSize(220, 120);
         adminFrame.setVisible(true);
     }
 
