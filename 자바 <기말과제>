@@ -1,11 +1,17 @@
+// 2020011932 김영민
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ReservePC {
+
+    // 예약 상태를 추적할 배열 (true: 예약됨, false: 예약되지 않음)
+    static boolean[] seatReserved = new boolean[6]; // 6개의 PC 좌석
+
     public static void main(String[] args) {
-        // Swing GUI는 EDT (Event Dispatch Thread)에서 실행해야 함
+
         SwingUtilities.invokeLater(() -> {
             // 첫 번째 JFrame 생성 (사용자1, 사용자2, 사용자3 버튼 + 관리자 버튼)
             JFrame frame = new JFrame("강의실 좌석 예약 시스템");
@@ -15,6 +21,11 @@ public class ReservePC {
 
             // 레이아웃 설정 (여기서는 BorderLayout을 사용하여 상단과 하단에 배치)
             frame.setLayout(new BorderLayout(10, 20));  // BorderLayout을 사용하여 위와 아래에 배치
+
+            // "예약할 계정을 선택해주세요" 문구를 표시하는 패널 생성
+            JPanel instructionPanel = new JPanel();
+            JLabel instructionLabel = new JLabel("예약할 계정을 선택해주세요");
+            instructionPanel.add(instructionLabel);
 
             // 사용자 버튼 패널 생성
             JPanel userPanel = new JPanel();
@@ -55,6 +66,19 @@ public class ReservePC {
             JButton button4 = new JButton("관리자");
             button4.setBackground(Color.PINK);
 
+            // 교탁 버튼 클릭 시 관리자 접근 여부 확인
+            button4.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int response = JOptionPane.showConfirmDialog(adminPanel,
+                            "관리자만 접근할 수 있습니다. 관리자 화면으로 이동하시겠습니까?",
+                            "관리자 접근 확인", JOptionPane.YES_NO_OPTION);
+                    if (response == JOptionPane.YES_OPTION) {
+                        showAdminLogin();
+                    }
+                }
+            });
+
             // 관리자 버튼 클릭 시, 관리자가 사용하는 화면을 띄움
             button4.addActionListener(new ActionListener() {
                 @Override
@@ -67,12 +91,13 @@ public class ReservePC {
             adminPanel.add(button4);
 
             // 사용자 버튼 패널을 프레임의 상단에 배치
-            frame.add(userPanel, BorderLayout.NORTH);
+            frame.add(instructionPanel, BorderLayout.NORTH);  // 사용자 안내 문구 패널을 상단에 배치
+            frame.add(userPanel, BorderLayout.CENTER); // 사용자 버튼 패널을 가운데에 배치
             // 관리자 버튼 패널을 프레임의 하단에 배치
             frame.add(adminPanel, BorderLayout.SOUTH);
 
             // JFrame 크기 설정 (너비 250, 높이 400)
-            frame.setSize(300, 200);
+            frame.setSize(330, 200);
 
             // 화면에 표시
             frame.setVisible(true);
@@ -137,9 +162,25 @@ public class ReservePC {
         pcPanel.add(pcButton5);
         pcPanel.add(pcButton6);
 
+        // 이전 화면 버튼 추가
+        JButton backButton = new JButton("이전화면");
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 현재 창을 닫고 첫 번째 화면으로 돌아가기
+                pcFrame.dispose(); // 현재 PC 화면을 닫음
+
+            }
+        });
+
+        // 이전 화면 버튼을 하단에 추가
+        JPanel backButtonPanel = new JPanel();
+        backButtonPanel.add(backButton);
+
         // 패널을 프레임에 추가 (교탁 버튼 패널은 북쪽(North), PC 버튼 패널은 중앙(Center)에 배치)
         pcFrame.add(podiumPanel, BorderLayout.NORTH);
         pcFrame.add(pcPanel, BorderLayout.CENTER);
+        pcFrame.add(backButtonPanel, BorderLayout.SOUTH);
 
         // 새로운 JFrame 크기 설정
         pcFrame.setSize(550, 200);
@@ -201,8 +242,12 @@ public class ReservePC {
         });
     }
 
+
+
+
     // 관리자가 사용하는 화면을 띄우는 메서드
     private static void showAdminScreen() {
+
         // 새로운 JFrame 생성 (관리자 화면)
         JFrame adminFrame = new JFrame("관리자 화면");
 
@@ -212,14 +257,54 @@ public class ReservePC {
         // 레이아웃 설정 (여기서는 세로 방향으로 버튼들을 배치)
         adminFrame.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 20));
 
-        // 관리자 화면에 필요한 버튼을 추가할 수 있음 (예: 좌석 상태 확인 등)
-        // 예시로 "관리자 화면"이라는 라벨을 추가
-        JLabel adminLabel = new JLabel("관리자 화면입니다.");
-        adminFrame.add(adminLabel);
+        // "좌석상태" 버튼 추가
+        JButton seatStatusButton = new JButton("좌석상태");
+        seatStatusButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showSeatStatus();
+            }
+        });
+
+
+        // "예약확인" 버튼 추가
+        JButton reservationCheckButton = new JButton("예약확인");
+        reservationCheckButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showReservationStatus();
+            }
+        });
+
+        // 버튼들을 관리자 화면에 추가
+        adminFrame.add(seatStatusButton);
+        adminFrame.add(reservationCheckButton);
 
         // 화면 크기 설정
         adminFrame.setSize(250, 150);
         adminFrame.setVisible(true);
+    }
+
+    // 좌석 상태 화면을 표시하는 메서드
+    private static void showSeatStatus() {
+        StringBuilder status = new StringBuilder("예약 불가능한 좌석:\n");
+        for (int i = 0; i < seatReserved.length; i++) {
+            if (seatReserved[i]) {
+                status.append("PC" + (i + 1) + " ");
+            }
+        }
+        JOptionPane.showMessageDialog(null, status.toString(), "좌석상태", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    // 예약 확인 화면을 표시하는 메서드
+    private static void showReservationStatus() {
+        StringBuilder status = new StringBuilder("현재 예약된 좌석:\n");
+        for (int i = 0; i < seatReserved.length; i++) {
+            if (seatReserved[i]) {
+                status.append("PC" + (i + 1) + " 예약완료\n");
+            }
+        }
+        JOptionPane.showMessageDialog(null, status.toString(), "예약확인", JOptionPane.INFORMATION_MESSAGE);
     }
 
     // 관리자 아이디 입력 다이얼로그를 띄우는 메서드
@@ -227,6 +312,8 @@ public class ReservePC {
         JPanel panel = new JPanel();
         panel.add(new JLabel("아이디 입력:"));
         JTextField adminIdField = new JTextField(10);
+        // 아이디 입력칸에 "admin"을 자동으로 입력
+        adminIdField.setText("admin");
         panel.add(adminIdField);
 
         // 관리자 아이디 입력 다이얼로그 표시
